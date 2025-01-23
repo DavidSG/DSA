@@ -1,0 +1,12 @@
+// COUNTING SORT
+        int max = 0;
+        for (int i = 0; i < costs.size(); i++) if (costs[i] > max) max = costs[i];
+
+        vector<int> counting(max + 1);
+        for (int i = 0; i < costs.size(); i++) counting[costs[i]]++;
+
+        int curr = 0;
+        for (int i = 0; i < counting.size(); i++) {
+            for (int j = 0; j < counting[i]; j++) costs[curr++] = i;
+        }
+        // COUNTING SORT

@@ -1,0 +1,144 @@
+UNORDERED -> O(1) time for everything
+
+insert
+erase
+count / [] -> access
+
+
+ORDERED
+also ->
+
+smallest & largest
+*s.begin()
+*prev(s.end()) (end is the next of the last)
+
+auto it =s.lower_bound(x): (first element that is >= x). 
+Use --it for first element that is < x (as long as it is not begin)
+s.upper_bound(x): (first element that is > x). 
+Use --it for first element that is <= x (as long as it is not begin)
+
+auto it;
+++it, --it, *it(value)
+
+
+
+ORDERED O(log n) time for everythins
+
+BASIC MAP PROBLEM
+   FOR STRINGS USE vector<int> map(26); AS MAP
+   FOR PROBLEMS WITH LIMITED INPUT (100) use vector<int> map(100) as MAP
+   REQUIRES COUNTING ELEMENTS + MATH
+
+HASHING
+	1. HASH IS A STRING (unordered_set<string> set) :
+	vector<int> map(26);	
+	for (int i = 0; i < s.size(); i++) {
+            map[s[i]-'a']++;
+        }
+
+        string hash1 = "";
+        for (int j = 0; j < 26; j++) {
+            hash1 += to_string(map[j]) + "";
+            map[j] = 0;
+        }
+
+        2. string (unordered elements) -> turn into vector<int> 26 then hash vector;
+
+	3. coordinates -> string hash = to_string(x) + ',' + to_string(y); or pair<x,y> might be better idk
+
+	4. Tree -> String node->val L () R ()
+
+COMPARING FREQUENCIES OF NUMBERS / LETTERS IN ARRAY / STRING
+count array1 as positive and array2 as negative
+
+vector<short int> map(26);
+
+        for (int i = 0; i < word1.size(); i++) map[word1[i]-'a']++;
+        for (int i = 0; i < word2.size(); i++) map[word2[i]-'a']--;
+
+        int ret = 0;
+        for (int i = 0; i < 26; i++) if (abs(map[i]) > 3) return false;
+
+        return true;
+
+
+INTERSECTION OF TWO ARRAYS (finding element common to two arrays, strings)
+create a map with frequencies of the firs one
+then create a map with frecuencies of the second one
+
+take the minimum of both when comparing them
+
+vector<short int> v(26), aux(26);
+
+        for (int j = 0; j < words[0].size(); j++) {
+            v[words[0][j]-'a']++;
+        }
+
+        for (int i = 1; i < words.size(); i++) {
+            for (int j = 0; j < words[i].size(); j++) {
+                aux[words[i][j]-'a']++; 
+            }
+
+            for (int j = 0; j < v.size(); j++) {
+                if (aux[j] < v[j]) v[j] = aux[j];
+                aux[j] = 0;
+            }
+        }
+
+        vector<string> ret;
+        for (int j = 0; j < v.size(); j++) {
+            while (v[j] > 0) {
+                ret.push_back(string(1, 'a' + j));
+                v[j]--;
+            }
+        }
+
+unordered_map<short int,short int> v, aux;
+
+        for (int j = 0; j < words[0].size(); j++) {
+            v[words[0][j]]++;
+        }
+
+        for (int i = 1; i < words.size(); i++) {
+            for (int j = 0; j < words[i].size(); j++) {
+                aux[words[i][j]]++; 
+            }
+
+            for (auto &pair : v) {
+                if (aux.count(pair.first)) {
+                    if (aux[pair.first] < v[pair.first]) v[pair.first] = aux[pair.first];
+                }                        
+                else pair.second = 0;
+            }
+
+            aux.clear();
+        }
+
+        vector<int> ret;
+        for (auto &pair : v) {
+            while (pair.second > 0) {
+                ret.push_back(pair.first);
+                pair.second--;
+            }
+        }
+
+TWO ARRAYS : NUMBER OF PAIRS THAT SATISFY A CONDITION
+
+unordered_map<string, int> map;
+        string aux;
+        for (int i = 0; i < grid.size(); i++) {
+            aux = "";
+            for (int j = 0; j < grid[0].size(); j++) {
+                aux += to_string(grid[i][j]) + " ";
+            }
+            map[aux]++;
+        }
+
+        int ret = 0;
+        for (int j = 0; j < grid[0].size(); j++) {
+            aux = "";
+            for (int i = 0; i < grid.size(); i++) {
+                aux += to_string(grid[i][j]) + " ";
+            }
+            if (map.count(aux)) ret += map[aux];
+        }

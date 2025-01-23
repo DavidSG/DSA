@@ -1,0 +1,39 @@
+UNORDERED -> O(1) time for everything
+
+insert
+erase (DIFFERENCE!)
+. Erasing Elements
+By Value: Removes all instances of the specified value.
+ums.erase(5); // Removes all 5s
+
+By Iterator: Removes the element at the specified iterator.
+auto it = ums.find(10);
+if (it != ums.end()) ums.erase(it); // Removes one occurrence of 10
+
+count (returns num of elements) 
+FIND ELEMENT
+
+
+all elements with keys(range)
+auto range = mm.equal_range(1);
+for (auto it = range.first; it != range.second; ++it) {
+    cout << it->first << " -> " << it->second << endl;
+}
+
+auto it = mm.find(1);
+if (it != mm.end()) {
+    cout << it->first << " -> " << it->second << endl; // Output: 1 -> apple
+}
+
+
+ORDERED
+also ->
+
+smallest & largest
+*ms.begin()
+*prev(ms.end()) (end is the next of the last)
+
+auto it = ms.lower_bound(x): (first element that is >= x). 
+Use --it for first element that is < x (as long as it is not begin)
+ms.upper_bound(x): (first element that is > x). 
+Use --it for first element that is <= x (as long as it is not begin)

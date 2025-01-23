@@ -1,0 +1,15 @@
+EASIER BUT MORE PREDICTABLE
+srand(time(0));
+
+// Get a random index
+int randomIndex = rand() % nums.size();
+
+
+LONGER BUT BETTER
+
+random_device rd; 
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, nums.size() - 1);
+
+    // Get a random index
+    int randomIndex = dis(gen);

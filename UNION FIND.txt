@@ -1,0 +1,63 @@
+class UnionFind {
+public:
+    vector<int> root;
+    vector<int> componentSize; int maxSize;
+    
+    int componentsCount;
+   
+    UnionFind(int n) {
+        componentsCount = n; maxSize = 1;
+        for (int i = 0; i < n; i++) {
+            root.push_back(i);
+            componentSize.push_back(1);
+        }
+    }
+    
+  
+    int findRoot(int x) {
+        if (root[x] == x) {
+            return x;
+        }
+        
+        return root[x] = findRoot(root[x]);
+    }
+    
+    void performUnion(int x, int y) {       
+        x = findRoot(x); y = findRoot(y);
+        
+        if (x == y) return
+	root[y] = x;
+/*
+	
+	
+        
+        if (componentSize[x] > componentSize[y]) {
+            componentSize[x] += componentSize[y];
+            if (componentSize[x] > maxSize) maxSize = componentSize[x];
+            root[y] = x;
+        } else {
+            componentSize[y] += componentSize[x];
+            if (componentSize[y] > maxSize) maxSize = componentSize[y];
+            root[x] = y;
+        }
+*/
+        
+        componentsCount--;
+    }
+    
+    int getRet() {
+        return maxSize;
+    }
+};
+
+int UnionFindGeneric(int n, vector<vector<int>>& edges) {
+        int ret = 0;
+        UnionFind u(n); 
+
+        for (int i = 0; i < edges.size(); i++) {
+            if (u.findRoot(edges[i][0]) == u.findRoot(edges[i][1])) ret++;
+            else u.performUnion(edges[i][0], edges[i][1]);
+        }
+
+        return ret;
+    }

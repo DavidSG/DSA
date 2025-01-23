@@ -1,0 +1,5 @@
+Greedy: every element in data structure (vector / array) is only considered once:
+
+Tactic 1: consider each element once as the solution
+Tactic 2: consider some elements for solution(a), and check if they are the solution (assumes elements after chosen one cannot be part of solution up to point(b))
+Example : Gas station

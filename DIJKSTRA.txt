@@ -1,0 +1,82 @@
+EDGES TO GRAPH (WEIGHTED BIDIRECTIONAL)
+
+g.assign(n, vector<pair<int,int>>());
+for (int i = 0; i < edges.size(); i++) {
+	g[edges[i][0]].push_back({edges[i][1], edges[i][2]}); 
+	g[edges[i][1]].push_back({edges[i][0], edges[i][2]}); 
+}
+		
+EDGES TO GRAPH (WEIGHTED ONE DIRECTIONAL)
+
+g.assign(n, vector<pair<int,int>>());
+for (int i = 0; i < edges.size(); i++) {
+	g[edges[i][0]].push_back({edges[i][1], edges[i][2]}); 
+}
+
+DIJIKSTRA
+
+ - GRAPH
+// NOTE PQ PAIR HAS TO BE THE OTHER WAY AROUND SINCE THE ORDERING IS BASED ON THE FIRST VALUE
+vector<int> dist(g.size(), 1000000000);
+dist[node1] = 0;
+priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+pq.push({node1, 0});
+while (!pq.empty()) {
+	pair<int,int> front = pq.top(); pq.pop();
+	int u = front.first, d = front.second;
+	if (d > dist[u]) continue;
+	for (auto a : g[u]) {
+		if (dist[u] + a.second < dist[a.first]) {
+			dist[a.first] = dist[u] + a.second;
+			pq.push({a.first, dist[a.first]});
+		}
+	}
+}
+
+- MATRIX
+
+const vector<pair<int, int>> dir = {
+    {-1, 0},  // up
+    {1, 0},  // down
+    {0, -1}, // left
+    {0, 1}  // right
+};
+
+vector<function<bool(int, int, int, int)>> isValid = {
+    [](int i, int j, int n, int m) { return i > 0; },
+    [](int i, int j, int n, int m) { return i < n; },
+    [](int i, int j, int n, int m) { return j > 0; },
+    [](int i, int j, int n, int m) { return j < m; }
+};
+
+int n = grid.size()-1, m = grid[0].size()-1;
+vector<vector<int>> dist(grid.size(), vector<int>(grid[0].size(), 1000000000));
+dist[0][0] = 0;
+
+priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
+pq.push({0, 0, 0});
+
+while (!pq.empty()) { 
+	int d = pq.top()[0], i = pq.top()[1], j = pq.top()[2]; pq.pop();
+	
+	if (d > dist[i][j]) continue;
+	for (int k = 0; k < 4; k++) {                
+		if (isValid[k](i, j, n, m)) {
+			int newI = i + dir[k].first;
+			int newJ = j + dir[k].second;
+
+			int newDist = max(dist[i][j], abs(grid[i][j] - grid[newI][newJ]));
+			if (newDist < dist[newI][newJ]) {
+				dist[newI][newJ] = newDist;
+				pq.push({newDist, newI, newJ});
+			}
+		}
+	}
+	
+}
+
+return dist[n][m];
+}
+
+if (dist[node2] == 1000000000) return -1;
+return dist[node2];

@@ -1,0 +1,43 @@
+The most efficient way to get to a high number is by multiplying it by 3.
+
+
+Prime numbers of n -> go through all numbers up to sqrt(n) and if 
+n % i == 0 it is a factor
+
+FACTORIZATION
+
+void factoriza(unsigned int i) {
+ assert(i >= 2); // O comprobaciones especiales
+ unsigned int p = 2;
+ 	while(p*p <= i) { // Better than sqrt
+ 		while(!(i % p)) {
+ 			cout << p << ’ ’;
+ 			i /= p;
+ 		}
+ 		++p;
+ 	}
+ if (i != 1) // Last prime
+ 	cout << i << ’ ’;
+}
+ 
+
+The Sieve of Eratosthenes
+prime numbers from 1 - 1000
+
+while (i <= 1000) {
+            if (isPrime[i]) {
+                for (int j = i+i; j < 1001; j += i) 
+                    isPrime[j] = false;
+            }  
+            i++;    
+        }
+
+
+MATH POW
+
+2^50 = 2^25 times itself
+2^25 = 2^12 times itself * 2
+2^12 = 2^6 times itself 
+...
+
+Pow turns into log2N function

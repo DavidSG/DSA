@@ -1,0 +1,45 @@
+BINARY SEARCH
+
+4 important points:
+  - while (a < b) will stop when finding element
+  - m = (a+b)/2 for previous element (a+b+1)/2 for next element in case of 2 in the middle
+  - a = m) when if condition applies to v[a], a = m + 1 when it doesnt
+  - if binary search can -> not find an element add if at the end for this possibility 
+
+int a = 0, b = nums.size()-1;
+	while (a < b) {
+		int m = (a+b)/2;
+		if (nums[a] < target) { a = m + 1; }
+		else { b = m; }
+	}
+
+
+Binary search in solution space
+
+same as before but a and b are all possible values for solutions and we check if that solution is a valid one.
+
+the minimum and maximum limit can be different numbers.
+max = *max_element(nums.begin(), nums.end())
+ 
+bool canEat(vector<int>& piles, int k, int h) {
+        int realHours = 0;
+        for(int i = 0; i < piles.size(); i++) {
+            realHours += piles[i] / k + (piles[i] % k > 0);
+        }
+
+        return realHours <= h;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int a = 1, b = INT_MAX;
+        while (a < b) {
+            int m = (1LL*a+b)/2;
+
+            if (canEat(piles,m,h)) { b = m; }
+            else { a = m + 1; }
+        }
+
+        return a;
+    }
+
+	

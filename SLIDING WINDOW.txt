@@ -1,0 +1,133 @@
+TYPE 1: CONSTANT SIZE SLIDING WINDOW
+TYPE 2: VARIABLE SIZE SLIDING WINDOW
+
+
+CONSTANT SIZE SLIDING WINDOW (SIZE K)
+        int count = 0;
+	//first window
+        for (int i = 0; i < k; i++) {
+            count += sum[i];
+        }
+	
+	// check first window condition
+	if () 
+	
+        for (int start = 0, end = k; end < nums.size(); end++) {
+            //generate next window
+	    sum += nums[end];
+            sum -= nums[start];
+            start++;
+
+	   // check window condition
+	   if () 
+        }
+
+SLIDING WINDOW VARIABLE SIZE:
+ - ITERATE END: FOR EACH END WE MUST FIND THE ONE/SEVERAL CORRECT BEGINING
+ - EACH ITERATION OF END MUST START AND END WITH VALID WINDOW
+ - MODIFY RET
+
+4 SCENARIOS:
+
+for (int start = 0, end = 0; end < nums.size(); end++) {
+            if (nums[end] == 2) cont++
+            while (cont > k) {
+		// shortest that DOESN'T satisfy condition
+		int shortest = end - start + 1; if (shortest < ret) ret = shortest; 
+                if (nums[start++] == 2) cont--;
+            }
+            atLeast += start; // k or more //in this one -> while (cont == k)
+	    atMost += end - start + 1; // k or less
+	    int longest = end - start + 1; if (longest > ret) ret = longest;
+        }
+
+SMALLEST SIZE WINDOW
+
+
+LONGEST
+int ret = 0, zeroes = 0;
+        for (int start = 0, end = 0; end < nums.size(); end++) {
+            zeroes += nums[end] == 0;
+            while (zeroes > k) zeroes -= nums[start++] == 0;
+
+            int aux = end - start + 1; if (aux > ret) ret = aux;
+        }
+
+SLIDING WINDOW WHERE YOU COUNT EACH VALID SUBARRAY ONCE
+vector<int> map(26);
+for (int start = 0, end = 0; end < s.size(); end++) {
+	map[s[end] - 'a']++;
+
+	while (map[s[end] - 'a'] > 1) {
+		map[s[start] - 'a']--;
+		start++;
+	}
+
+	substringCount += (end - start + 1);
+}
+
+for (int start = 0, end = 0, zeroes = 0; end < nums.size(); end++) {
+	if (nums[end] == 0) zeroes++;
+
+	while (zeroes > 1) {
+		if (nums[start] == 0) zeroes--;
+		start++;
+	}
+
+	aux = end - start;
+	if (aux > ret) ret = aux;
+}
+
+SLIDING WINDOW WHERE YOU COUNT EACH VALID SUBARRAY SEVERAL TIMES
+(BECAUSE ONCE A SUBARRAY IS VALID SO IS EVERY OTHER THAT IT CONTAINS)
+AT MOST -> SUBARRAYS WITH AT MOST ONE RESTRICTION (LIKE K ODDS)
+int atMost(vector<int>& nums, int k) {
+        int windowSize = 0, subarrays = 0, start = 0;
+
+        for (int end = 0; end < nums.size(); end++) {
+            windowSize += nums[end] % 2;
+            // Find the first index start where the window has exactly k odd
+            // elements.
+            while (windowSize > k) {
+                windowSize -= nums[start] % 2;
+                start++;
+            }
+            // Increment number of subarrays with end - start + 1.
+            subarrays += end - start + 1;
+        }
+
+        return subarrays;
+    }
+
+
+
+SLIDING WINDOW WHERE YOU COUNT EACH VALID SUBARRAY SEVERAL TIMES
+(BECAUSE ONCE A SUBARRAY IS VALID SO IS EVERY OTHER THAT CONTAINS IT)
+AT LEAST K DIFFERENT
+
+vector<int> aux(3); int ret=0, i=0;
+        int n = s.length();
+        for(int end = 0; end < n; end++) {
+            aux[s[end] - 'a']++;
+            while (aux[0] && aux[1] && aux[2])
+            aux[s[i++] - 'a']--;
+            ret += i;
+        }
+        return ret;
+
+int ret=0, begin = 0, count = 0;
+        for(int end = 0; end < nums.size(); end++) {
+            if (map[nums[end]] == 0) count++;
+            map[nums[end]]++;
+
+            while (count == map.size()) {
+                if (map[nums[begin]] == 1) count--;
+                map[nums[begin++]]--;
+            }
+            ret += begin;
+        }
+
+we count the number of legit subarrays and every time we increment
+end we add the number of correct subarrays that end in that location.
+
+

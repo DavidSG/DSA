@@ -1,0 +1,94 @@
+GENERAL STACK
+iterate array once (left to right or right to left). Add elements to stack and remove according to requirements.
+
+Can use stack to solve problems about removing elements like this:
+You can remove any occurrence of one of the substrings "AB" or "CD" from s.
+Explanation: We can do the following operations:
+- Remove the substring "ABFCACDB", so s = "FCACDB".
+- Remove the substring "FCACDB", so s = "FCAB".
+- Remove the substring "FCAB", so s = "FC".
+
+PARENTHESIS PROBLEM
+
+stack<char> stack;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                if (!stack.empty()) ret += s[i];
+                stack.push('(');
+            }
+            else {
+                stack.pop();
+                if (!stack.empty()) ret += s[i];
+            }
+        }
+
+SCORE PROBLEM
+
+add 0 to stack for the value of whole string.
+Each new smaller value is a new stack.top()
+
+stack<int> stack; stack.push(0); int aux;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                stack.push(0);
+            }
+            else {
+                if (stack.top() == 0) stack.top() = 1;
+                aux = stack.top(); stack.pop();
+                stack.top() += aux;
+            }
+        }
+
+
+MONOTONIC STACK (always ordered)
+
+METHOD 1: ADD EVERY ELEMENT BY REMOVING ELEMENTS
+
+add elements and remove them until 
+
+DECREASING MONOTONIC STACK FROM BEGIN
+int ret = 0;
+
+stack<pair<int,int>> s;
+for (int i = 0; i < nums.size(); i++) {
+	while (!s.empty() && nums[i] > s.top().first) { s.pop(); }
+	s.push({nums[i], i});
+
+}
+
+INCREASING MONOTONIC STACK FROM BEGIN
+stack<pair<int,int>> s;
+for (int i = 0; i < nums.size(); i++) {
+	while (!s.empty() && nums[i] < s.top().first) { s.pop(); }
+	s.push({nums[i], i});
+
+}
+
+while (!s.empty()) { ret += nums.size() - s.top().second; s.pop(); }
+return ret;
+
+
+MONOTONIC STACK
+
+-> NEXT LARGEST / SMALLEST ELEMENT 
+-> FURTHEST LARGEST / SMALLEST ELEMENT
+int furthestSmallestElement(vector<int>& nums) {
+        stack<int> s;
+        const int n = nums.size();
+        for (int i = n - 1; i >= 0; --i) {
+            if (s.empty() || nums[i] < nums[s.top()]) {
+                s.push(i);
+            }
+        }
+        int r = 0;
+        for (int i = 0, m = INT_MIN; !s.empty() && i < n; ++i) {
+            while (!s.empty() && s.top() <= i) {
+                s.pop();
+            }
+            if (nums[i] > m) {
+                for (m = nums[i]; !s.empty() && nums[s.top()] < m; r = max(r, s.top() - i + 1), s.pop())
+                ;
+            }
+        }
+        return r;
+    }

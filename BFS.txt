@@ -1,0 +1,101 @@
+BINTREE
+
+queue<TreeNode*> q; int cont = 0;
+
+if (root != nullptr) q.push(root);
+
+while (!q.empty()) {
+	int length = q.size();
+	for (int i = 0; i < length; i++) {
+		if (q.front()->left != nullptr) {
+			q.push(q.front()->left);
+		}
+		if (q.front()->right != nullptr) {
+			q.push(q.front()->right);
+		}
+		q.pop();
+	}
+	cont++;
+}
+
+GRAPH
+queue<int> q; int length;
+
+vector<vector<int>> directions = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+queue<pair<int,int>> q; 
+        q.push({i,j}); grid2[i][j] = true;
+        while (!q.empty()) {
+	    int i = q.front().first, j = q.front().second; q.pop();
+            for (int d = 0; d < 4; d++) {
+                int newI = i + directions[d][0], newJ = j + directions[d][1];
+                if (newI > -1 && newI < grid2.size() && newJ > -1 && newJ < grid2[0].size() && grid2[newI][newJ] == 1) {
+                    q.push({newI,newJ}); grid2[newI][newJ] = true; 
+                }
+            }
+        }
+
+
+MATRIX
+
+void bfs(vector<vector<int>>& grid, int i, int j) {
+        queue<pair<int,int>> q;
+
+        q.push({i,j}); grid[i][j] = 0;
+        while (!q.empty()) {
+            i = q.front().first; j = q.front().second;
+
+            if (i > 0 && grid[i-1][j] > 0) { q.push({i-1,j}); grid[i-1][j] = 0; }
+            if (i < n && grid[i+1][j] > 0) { q.push({i+1,j}); grid[i+1][j] = 0; }
+            if (j > 0 && grid[i][j-1] > 0) { q.push({i,j-1}); grid[i][j-1] = 0; }
+            if (j < m && grid[i][j+1] > 0) { q.push({i,j+1}); grid[i][j+1] = 0; }
+
+            q.pop();
+        }
+
+    }
+
+
+APPLICATIONS
+
+TOPOLOGICAL SORT BFS 
+KAHN'S ALGORITHM
+
+int minimumSemesters(int n, vector<vector<int>>& relations) {
+        vector<vector<int>> graph (n);
+        vector<int> indegree(n);
+
+        for (int i = 0; i < relations.size(); i++) {
+            graph[relations[i][0]-1].push_back(relations[i][1]-1);
+            indegree[relations[i][1]-1]++;
+        }
+
+        vector<char> color(n,'W');
+        if (cycleDetection(0, graph, color)) return -1;
+        
+        queue<int> q;
+        
+        // Initialize begin nodes (no receiving edges)
+        for (int i = 0; i < n; i++) if (indegree[i] == 0) q.push(i);
+        
+        // Iterate graph starting with begin nodes (BFS)
+        int cont = 0;
+        while (!q.empty()) {
+            int length = q.size(); cont++;
+            for (int i = 0; i < length; i++) {
+                int node = q.front(); q.pop();
+                for (int adj: graph[node]) {
+                    indegree[adj]--;
+                    if (indegree[adj] == 0) q.push(adj);
+                }
+            }
+            
+        }
+        
+        return cont;
+    }
+
+
+FINDING DIAMETER OF TREE:
+
+1. Find furthest node from any node
+2. Find longest distance from that node

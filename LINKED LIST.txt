@@ -1,0 +1,44 @@
+SIZE
+
+ListNode* curr = head; int size = 0;
+while (curr != nullptr) {
+	curr = curr->next; size++;
+}
+
+
+REVERSE
+
+ListNode* reverseList(ListNode* head) {
+	if (head == nullptr || head->next == nullptr) return head;
+
+	ListNode* c1 = head; ListNode* c2 = head->next; ListNode* temp; 
+	head->next = nullptr;
+	while (c2 != nullptr) {
+		temp = c2->next;
+		c2->next = c1;
+		c1 = c2; c2 = temp;
+	}
+	return c1;
+
+}
+
+MIDDLE
+
+ListNode* mid = head, *end = head;
+while (end != nullptr && end->next != nullptr) {
+	end = end->next->next;
+	mid = mid->next;
+}
+
+AVOID HEADER PROBLEMS BY INSERTING HEADER
+ListNode *curr = new ListNode(INT_MIN), *scout, *aux;
+curr->next = head; head = curr;
+
+return head->next;
+
+2 TIPES ITERATION
+while (curr != nullptr)
+NORMAL
+
+while (curr->next != nullptr) 
+DELETIONS -> must remove next by changing pointers

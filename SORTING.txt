@@ -1,0 +1,57 @@
+sort(vec.begin(), vec.end()); Increasing
+sort(vec.begin(), vec.end(), greater<>()) Decreasing
+
+A comparator function should return true if the first argument is considered to go before the second in the strict weak ordering, and false otherwise.
+
+bool cmp(pair<int, int> a, pair<int, int> b) {
+    if (a.second != b.second) return a.second < b.second;
+    else return a.first < b.first;
+}
+bool cmp(const pair<int, int> &a, const pair<int, int> &b) {
+    if (a.second != b.second) return a.second < b.second;
+    else return a.first < b.first;
+}
+
+sort(v.begin(), v.end(), compareDesc);
+
+
+COUNTING SORT
+
+class Solution {
+    void countingSort(vector<int>& arr) {
+        // Create the counting hash map.
+        unordered_map<int, int> counts;
+        // Find the minimum and maximum values in the array.
+        int minVal = *min_element(arr.begin(), arr.end());
+        int maxVal = *max_element(arr.begin(), arr.end());
+
+        // Update element's count in the hash map.
+        for (auto& val : arr) {
+            counts[val]++;
+        }
+
+        int index = 0;
+        // Place each element in its correct position in the array.
+        for (int val = minVal; val <= maxVal; ++val) {
+            // Append all 'val's together if they exist.
+            while (counts[val] > 0) {
+                arr[index] = val;
+                index += 1;
+                counts[val] -= 1;
+            }
+        }
+    }
+
+
+CYCLE SORT
+
+while (i < n) {
+            if (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
+                swap(nums[i], nums[nums[i] - 1]);
+            } else {
+                i++;
+            }
+        }
+
+HEAP SORT
+(put all elements in heap and insert into array)

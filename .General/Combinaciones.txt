@@ -1,0 +1,1 @@
+stack.push(unordered_map<string, int>());

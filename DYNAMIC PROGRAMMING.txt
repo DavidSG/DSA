@@ -1,0 +1,327 @@
+General process
+1. Use backtracking to get recursion
+
+2.
+if backtracking requires one parameter use array (simplify to constant)
+if requires 2 use 2D (simplifies to array)
+if it uses 3 use 3D (simplify to matrix)
+etc.
+
+3.
+If the recursion makes calls to subproblems regarding order like:
+Points where you can split in two (ebanisto -> cut in position 5 -> 1-5, 5-10)
+Coordinates within others (0 - 10 asking 1 - 9)
+
+Then use diagonal matrix where 1 - 7 is the subproblem between indexes 1-7
+
+
+Tips:
+- Dp array can have multiple levels, depending on necesity:
+for example
+
+1D Fibonacci Style
+
+One array O(n) -> reducible to constant O(1)
+
+Every cell is an optimum for that length that can be calculated using
+one or more previous cells
+
+// fibonacci
+int fib(int n) {
+        if(n < 2) return n;
+        int a = 0, b = 1, temp;
+        for(int i = 1; i < n; i++) {
+            temp = b;
+            b += a;
+            a = temp;
+        }
+        return b;
+    }
+
+// house robber
+int rob(vector<int>& nums) {
+        if (nums.size() == 1) return nums[0];
+
+        if (nums[0] > nums[1]) {
+            nums[1] = nums[0];
+        }
+        
+        int a = nums[0], b = nums[1], c;
+        for (int i = 2; i < nums.size(); i++) {
+            c = max(a + nums[i],b);
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+
+Longest increasing substring
+
+NORMAL
+
+ for (int i = 1; i < nums.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+VERSION NLOGN
+
+CONSTRUIMOS SECUENCIA
+SI ES MAYOR LO INSERTAMOS EN LA SECUENCIA Y SI ES MENOR LO REEMPLAZAMOS POR EL PRIMER VALOR MAYOR
+
+int lengthOfLIS(vector<int>& nums) {
+        vector<int> v; v.push_back(nums[0]);
+        
+        for (int i = 1; i < nums.size(); i++) {
+            int num = nums[i];
+            if (num > v[v.size()-1]) {
+                v.push_back(num);
+            } else {
+                int j = binarySearch(v, num);
+                v[j] = num;
+            }
+        }
+        
+        return v.size();
+    }
+
+
+    int binarySearch(vector<int> &arr, int num) {
+        int a = 0, b = arr.size() - 1;
+        
+        while (a < b) {
+            int m = (a + b) / 2;
+            if (arr[m] == num) {
+                return m;
+            }
+            if (arr[m] < num) {
+                a = m + 1;
+            } else {
+                a = m;
+            }
+        }
+        
+        return a;
+    }
+
+KEEP LONGEST SUBSTRING IN VECTOR
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> v; v.push_back(nums[0]);
+        
+        for (int i = 1; i < nums.size(); i++) {
+            int num = nums[i];
+            if (num > v[v.size()-1]) {
+                v.push_back(num);
+            } else {
+                int j = binarySearch(v, num);
+                v[j] = num;
+            }
+        }
+        
+        return v.size();
+    }
+
+    int binarySearch(vector<int> &arr, int num) {
+        int left = 0;
+        int right = arr.size() - 1;
+        int mid = (left + right) / 2;
+        
+        while (left < right) {
+            mid = (left + right) / 2;
+            if (arr[mid] == num) {
+                return mid;
+            }
+            if (arr[mid] < num) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        
+        return left;
+    }
+};
+
+TOO MANY RESTRICTIONS
+
+vector<unordered_map<int,int>> memo(nums.size());
+
+        int ret = 1;
+        for (int i = 1; i < nums.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                int diff = nums[i] - nums[j];
+                if (memo[j].count(diff)) memo[i][diff] = memo[j][diff] + 1;
+                else memo[j][diff] = 1, memo[i][diff] = 2;
+
+                if (memo[i][diff] > ret) ret = memo[i][diff];
+            }
+            
+        }
+
+
+Best time to buy and sell stock (state machine DP)
+
+One array O(n) -> reducible to constant O(1)
+
+Every cell is state machine for that length that can be calculated using
+one or more previous cells
+
+int maxProfit(vector<int>& prices, int fee) {
+        long long int oldH = INT_MIN, oldW = 0;
+        long long int hold, wait;
+
+        for (int i = 0; i < prices.size(); i++) {
+            hold = max(oldH, oldW - prices[i] - fee);
+            wait = max(oldW, oldH + prices[i]); 
+
+            oldH = hold;
+            oldW = wait;
+        }
+
+        return oldW;
+    }
+
+Array of state machines (maximum k purchases)
+int maxProfit(int k, vector<int>& prices) {
+        vector<int> state(2*k + 1, -100); int aux;
+        state[0] = 0;
+        for (int i = 0; i < prices.size(); i++) {
+            for (int j = state.size()-1; j > 0; j--) {
+                aux = state[j-1]; j % 2 == 0 ? aux += prices[i] : aux -= prices[i];
+                if (aux > state[j]) state[j] = aux;
+            }
+        }
+
+        int ret = 0;
+        for (int j = 0; j < state.size(); j++) if (state[j] > ret) ret = state[j];
+
+        return ret;
+    }
+
+__________________________
+
+2D/3D basic
+
+Like fibonacci but in 2D. Cells depend on previuous cells for calculation:
+. Same row if it has repetition
+. Not same row if it doesnt have repetition (Knapsack or take/no take)
+
+Example of 2D (
+
+Number of ways to form target with different types of coins.
+We reuse one array for space
+vector<int> v (++amount,0); v[0] = 1;
+        for (int j = coins[0]; j < amount; j++) {
+            v[j] = v[j-coins[0]];
+        }
+
+        for (int i = 1; i < coins.size(); i++) {
+            for (int j = coins[i]; j < amount; j++) {
+                v[j] += v[j-coins[i]];
+            }
+        }
+
+2D multiplicative (Ebanisto)
+
+vector<vector<int>> dp(cuts.size(), vector<int>(cuts.size()));
+        for (int d = 2; d < cuts.size(); d++) {
+            for (int i = 0; i < cuts.size()-d; i++) {
+                int j = i + d;
+
+                dp[i][j] = INT_MAX;
+                for (int cut = i + 1; cut < j; cut++) {
+                    int sum = dp[i][cut] + dp[cut][j] +  cuts[j] - cuts[i];
+                    if (sum < dp[i][j]) dp[i][j] = sum;
+                }
+            }
+        }
+
+        return dp[0][cuts.size()-1];
+
+
+
+Example of 3D (array of matrixes)
+
+vector<vector<int>> memo(m+1, vector<int>(n+1,-1)); memo[0][0] = 0;
+
+        int ret = 0;
+        for (int x = 0; x < strs.size(); x++) {
+            int z = 0, o = 0;
+            for (int i = 0; i < strs[x].size(); i++) {
+                strs[x][i] == '0' ? z++ : o++;
+            }
+
+            for (int i = m; i >= z; i--) {
+                for (int j = n; j >= o; j--) {
+                    int pre = memo[i-z][j-o];
+                    if (pre != -1 && pre + 1 > memo[i][j]) {
+                        memo[i][j] = pre + 1;
+                        if (memo[i][j] > ret) ret = memo[i][j];
+                    }
+                }
+            }
+        }
+
+
+
+Longest common substring
+
+int LCS(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> row(nums1.size()), newRow(nums1.size());
+
+        if (nums1[0] == nums2[0]) row[0] = 1;
+        for (int j = 1; j < nums1.size(); j++) {
+            if (nums1[j] == nums2[0]) row[j] = 1;
+            else row[j] = row[j-1];
+        }
+
+        for (int i = 1; i < nums2.size(); i++) {
+            if (nums1[0] == nums2[i]) newRow[0] = 1;
+            else newRow[0] = row[0];
+            for (int j = 1; j < nums1.size(); j++) {
+                if (nums1[j] == nums2[i]) newRow[j] = row[j-1] + 1;
+                else newRow[j] = max (newRow[j-1], row[j]);
+            }
+            swap(row, newRow);
+        }
+
+        return row[nums1.size()-1];
+    }
+
+text justification
+
+int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
+        vector<int> memo(books.size());
+
+        int i = books.size()-2; int longitud = books[i][0], altura;
+        while (i >= 0 && longitud <= shelfWidth) {
+            altura = max(books[i][1], altura);
+            memo[i] = altura;
+            --i;
+            if (i > -1) longitud += books[i][0];
+        }
+
+        while (i >= 0) {
+            int j = i; int longitud = books[i][0]; int altura = books[i][1]; memo[i] = INT_MAX;
+            while (j < books.size()-1 && longitud <= shelfWidth) {
+                int nuevo = altura + memo[j+1];
+                if (nuevo < memo[i]) {
+                    memo[i] = nuevo;
+                }
+                ++j; longitud += books[j][0]; altura = max(altura, books[j][1]);
+            }
+            --i;
+        }
+
+        return memo[0];
+    }
+
+_____________________________
+
+

@@ -1,0 +1,120 @@
+BASICS
+
+& (AND): Sets each bit to 1 if both bits are 1.
+| (OR): Sets each bit to 1 if one of two bits is 1.
+^ (XOR): Sets each bit to 1 if only one of two bits is 1.
+~ (NOT): Inverts all the bits.
+<< (Left Shift): Shifts the bits of the number to the left.
+>> (Right Shift): Shifts the bits of the number to the right.
+
+last bit is one -> n % 2 = 0 || n & 1
+n = n /= 2 || n = n >> 1
+n = n *= 2 || n = n << 1
+
+1 << 3 LEFT SHIFT 3 TIMES
+00001 -> 01000
+
+(path & (path - 1)) == 0
+by subtracting 1 to path you eliminate the last 1:
+00100 -> 00011 (in this case its true)
+10100 -> 10011 (in this case its false)
+
+x & (-x)
+
+Let's first discuss why x & (-x) is a way to keep the rightmost 1-bit and to set all the other bits to 0.
+
+Basically, that works because of two's complement. In two's complement notation −x is the same as ¬x+1. In other words, to compute −x one has to revert all bits in x and then add 1 to the result.
+
+TODO
+int n = (int)( Math.log(num) / Math.log(2) ) + 1;
+
+total size of bin num
+
+
+ADVANCED
+
+XOR -> every 2 that are the same cancel each other out
+
+int finalXor = k;
+        
+for (int n : nums) {
+	finalXor = finalXor ^ n;
+}
+
+// generate first bitmask 1(k)0(n - k)
+        bitmask = (1 << n) - (1 << n - k);
+
+COUNTING BITS: MOST EFFICIENT
+AND de n y n-1 elimina el bit menos significativo de n
+al restarle 1 a n el bit menos significativo se convierte
+en 0 y todos los de su derecha 1.
+
+int ret= 0;
+    while (n != 0) {
+        ret++;
+        n &= (n - 1);
+    }
+
+COUNTING BITS: DIVISION (one by one)
+int count = 0;
+while (num) {
+	if (num & 1) count++;
+	num >>= 1;
+}
+
+COUNTING BITS: MASK OPTION
+
+static int findWeight(int num) {
+        int mask = 1;
+        int weight = 0;
+        
+        while (num) {
+        if (num & 1) { //last bit is 1
+            weight++;
+        }
+        num >> 1; //right shift num
+    }
+}
+
+COUNTING BITS
+
+FINDING DUPLICATE
+
+int findDuplicate(vector<int>& nums) {
+        int duplicate = 0;
+        int n = nums.size() - 1;
+        int max_num = *max_element(nums.begin(), nums.end());
+        int max_bit = calcMaxBit(max_num);
+        
+        // Iterate over each bit
+        for (int bit = 0; bit < max_bit; bit++) {
+            int mask = (1 << bit);
+            int base_count = 0, nums_count = 0;
+            
+            for (int i = 0; i <= n; i++) {
+                // If bit is set in number (i) then add 1 to base_count
+                if (i & mask) {
+                    base_count++;
+                }
+                // If bit is set in nums[i] then add 1 to nums_count
+                if (nums[i] & mask) {
+                    nums_count++;
+                }
+            }
+            
+            // If the current bit is more frequently set in nums than it is in 
+            // the range [1, 2, ..., n] then it must also be set in the duplicate number
+            if (nums_count > base_count) {
+                duplicate |= mask;
+            }
+        }
+        return duplicate;
+    }
+
+
+
+bitmask for hash map 
+
+bitset<100> cnt;
+
+GREY CODE

@@ -1,0 +1,36 @@
+BACKTRACKING
+
+Permutations - Backtracking 
+
+for all elements 
+if (it has not been picked) -> backtracking (mark element as picked)
+
+add element at the end of recursion tree
+
+Combinations - Backtracking 
+
+for all elements 
+AFTER ITERATOR -> backtracking (add element to combination and increase iterator)
+
+add element at the end of recursion tree
+
+Subsets
+Subsets are the exact same thing as combinations (elements are or are not in set/combination)
+the difference is subsets require combinations of all sizes
+
+for all elements 
+AFTER ITERATOR -> backtracking (add element to combination and increase iterator)
+
+can also be created with cascading ->
+iterating all nums
+iterating all created subsets (for no duplicates use only created last time)
+add num
+
+
+OTHER
+
+Subarrays -> use sliding window
+
+Subsequences -> method varies (usually iteration)
+
+

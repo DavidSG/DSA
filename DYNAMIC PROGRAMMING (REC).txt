@@ -1,0 +1,18 @@
+EXAMPLE 2D
+
+int recDP(const vector<int>& locations, vector<vector<int>> &dp, int fuel, int start) {
+        if (dp[fuel][start] != -1) return dp[fuel][start];
+
+        int ret = 0;
+        if (start == fi) ret++;
+        for (int next = 0; next < locations.size(); next++) {
+            if (next != start) {
+                int newFuel = fuel - abs(locations[start] - locations[next]);
+                if (newFuel > -1) ret = (ret + recDP(dp, newFuel, next, locations)) % mod;
+            }
+        }
+
+        dp[fuel][start] = ret;
+        return ret;
+
+    }

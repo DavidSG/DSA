@@ -1,0 +1,109 @@
+TWO POINTERS ITERATION BEGIN & END
+
+int a = 0, b = s.size()-1;
+while (a < b) {
+	if () { a++; }
+	else if () { b--; }
+	else { a++; b--; }
+}
+
+TWO POINTERS ITERATION 0 & 1
+int a = 0, b = 1;
+while (a < nums.size() && b < nums.size()) {
+	if () a += 2;
+	else if () b += 2;
+	else { func(); a+=2; b+=2; }
+}
+return nums;
+
+TWO POINTERS ITERATING DIFFERENT ARRAYS
+int a = 0, b = 0;
+while (a < nums1.size() && b < nums2.size()) {
+	if () { a++; }
+	else if () { b++; }
+	else { a++; b++; }
+}
+
+
+HARE & TORTOISE CYCLE DETECTION
+
+La liebre avanza de dos en dos y la tortuga
+de uno en uno. Si se encuentran hay ciclo.
+Si no no hay ciclo.
+
+INTEGER FUNCTION
+int tortoise = f(n), hare = f(f(n)), aux;
+while (tortoise != hare && hare != 1) {
+	tortoise = f(tortoise);
+	hare = f(f(hare));
+}
+
+LINKEDLIST
+ListNode *tortoise = head->next, *hare = head->next->next;
+while (tortoise != hare) {
+	if (hare == nullptr || hare->next == nullptr) return nullptr;
+	tortoise = tortoise->next;
+	hare = hare->next->next;
+}
+
+
+FOLLOWING ALGORITHMS REQURE CYCLE DETECTION FIRST
+HARE & TORTOISE CYCLE BEGIN (mu)
+
+HOW THIS WORKS:
+Hare will never "pass" the tortoise more than once 
+The hare enters loop at time 3 for example, so if it moves in total 6 until tortoise and hare meet
+that means it will be in loop for 4. Which means after 2 moves it will be at beggining 
+(twice the size of the loop)
+
+_ _ B _ _ E
+B -> begin loop
+E -> loops back to B
+
+INTEGER FUNCTION
+int mu = 0; hare = x0;
+while (tortoise != hare) {
+	tortoise = f(tortoise); hare = f(hare); mu++;
+}
+
+LINKEDLIST
+hare = head;
+while (tortoise != hare) {
+	tortoise = tortoise->next; hare = hare->next; 
+}
+
+HARE & TORTOISE CYCLE LENGTH (lambda)
+
+INTEGER FUNCTION
+int lambda = 1; hare = f(tortoise);
+while (tortoise != hare) {
+	hare = f(hare); lambda++;
+}
+
+
+3sum
+
+for (int i = 0; i < nums.size() && nums[i] <= 0; ++i)
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                twoSumII(nums, i, res);
+            }
+        return res;
+    }
+    void twoSumII(vector<int>& nums, int i, vector<vector<int>>& res) {
+        int lo = i + 1, hi = nums.size() - 1;
+        while (lo < hi) {
+            int sum = nums[i] + nums[lo] + nums[hi];
+            if (sum < 0) {
+                ++lo;
+            } else if (sum > 0) {
+                --hi;
+            } else {
+                res.push_back({nums[i], nums[lo++], nums[hi--]});
+                while (lo < hi && nums[lo] == nums[lo - 1]) ++lo;
+            }
+        }
+    }
+
+TWO POINTERS (TWO ITERATIONS)
+ITERATE ONCE FROM LEFT TO RIGHT, THEN FROM RIGHT TO LEFT.
+

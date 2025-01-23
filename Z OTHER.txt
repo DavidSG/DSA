@@ -1,0 +1,7 @@
+Boyer-Moore
+https://leetcode.com/problems/majority-element-ii/editorial/
+basically finding an element that appears more than nums.size()/2, nums.size()/3, nums.size()/4... times
+
+have a counter
+when you fin an element increase a counter for that element
+if it reaches 0 swap the element to the next element

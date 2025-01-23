@@ -1,0 +1,46 @@
+void buildPrefixTable(const string& pattern, vector<int>& prefix) {
+        int m = pattern.size();
+        int j = 0; // Length of previous longest prefix
+        prefix[0] = 0;
+
+        for (int i = 1; i < m; i++) {
+            while (j > 0 && pattern[i] != pattern[j]) {
+                j = prefix[j - 1];
+            }
+            if (pattern[i] == pattern[j]) {
+                j++;
+            }
+            prefix[i] = j;
+        }
+    }
+
+    bool kmpSearch(const string& text, const string& pattern) {
+        int n = text.size();
+        int m = pattern.size();
+        vector<int> prefix(m);
+        buildPrefixTable(pattern, prefix);
+
+        int j = 0; // Index in pattern
+        for (int i = 0; i < n; i++) {
+            while (j > 0 && text[i] != pattern[j]) {
+                j = prefix[j - 1];
+            }
+            if (text[i] == pattern[j]) {
+                j++;
+            }
+            if (j == m) {
+                return true;
+                j = prefix[j - 1];
+            }
+        }
+        return false;
+    }
+
+
+USEFUL TOOLS
+
+s = s + s;
+concatenate string so that rotations dont matter
+
+s = pattern + '#' + text
+when prefix[i] == pattern.length() -> iterate pattern.length() while prefix[j] == pattern.length()

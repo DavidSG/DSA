@@ -1,0 +1,83 @@
+Origin node is index1
+Left child is 2*i
+Right child is 2*i+1
+
+TREE
+
+PREORDER
+void dfs(TreeNode* node) {
+        if (node->val)
+
+        if (node->left != nullptr) dfs (node->left);
+        if (node->right != nullptr) dfs (node->right);
+    }
+
+POSTORDER
+void dfs(TreeNode* node) {
+        if (node->left != nullptr) dfs (node->left);
+        if (node->right != nullptr) dfs (node->right);
+
+        if (node->val)
+    }
+
+check for something and return true / false if you find it
+
+tips:
+use equal function for comparing values in tree (since the val can be nullptr)
+
+bool equal(TreeNode* a, TreeNode* b) {
+    if (a == nullptr && b == nullptr) return true;  
+    if (a == nullptr || b == nullptr) return false; 
+    return a->val == b->val;
+}
+
+bool equal(TreeNode* a, TreeNode* b) {
+    if (!a && !b) return true;  
+    if (!a || !b) return false; 
+    return a->val == b->val;
+}
+
+bool check(Node* node) {
+        if (node->val != '+') {
+            if (chars[node->val-'a'] == 0) return false;
+            chars[node->val-'a']--;
+        }
+        if (node->left != nullptr && !check (node->left)) return false;
+        if (node->right != nullptr && !check (node->right)) return false;
+
+        return true;
+    }
+
+
+GRAPH
+
+MATRIX
+void dfs(vector<vector<char>>& grid, int i, int j) {
+		if (grid[i][j] == '0' || grid[i][j] == 'V') return;
+
+		grid[i][j] = 'V'; // visited
+		int n = grid.size(), m = grid[0].size();
+		if (i > 0) dfs(grid, i-1, j); // up
+		if (i < n) dfs(grid, i+1, j); // down
+		if (j > 0) dfs(grid, i, j-1); // left 
+		if (j < m) dfs(grid, i, j+1); // right
+	}
+
+if (i > -1 && i < n && j > 0 && j < m) 
+
+
+APPLICATIONS
+
+bool cycleDetection(int v, vector<vector<int>>& adj, vector<char>& color) {
+        color[v] = 'G';
+
+        for (int i : adj[v]) {
+            if (color[i] == 'G') return true;
+            else if (color[i] == 'W')
+                if (cycleDetection(i, adj, color)) return true;
+        }
+
+        color[v] = 'B';
+
+        return false;
+    }

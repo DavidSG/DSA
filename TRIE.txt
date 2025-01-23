@@ -1,0 +1,46 @@
+struct Trie {
+    vector<Trie*> child;
+    int prefixes;
+    int words;
+
+    Trie() : child(26, nullptr), prefixes(0), words(0) {}
+
+    void add(const string &s, int i = 0) {
+        Trie* t = this;
+        for (; i < s.size(); ++i) {
+            if (t->child[s[i] - 'a'] == nullptr) {
+                t->child[s[i] - 'a'] = new Trie();
+            }
+            t = t->child[s[i] - 'a'];
+            t->prefixes++;
+        }
+        t->words++;
+    }
+};
+
+class Solution {
+public:
+    string dfs(Trie* t, string word) {
+        string ret = word;
+
+        for (int i = 0; i < 26; i++) {
+            if (t->child[i] != nullptr && t->child[i]->words > 0) {
+                string newWord = dfs(t->child[i], word + char('a' + i));
+                if (newWord.size() > ret.size() || (newWord.size() == ret.size() && newWord < ret)) {
+                    ret = newWord;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    string longestWord(vector<string>& words) {
+        Trie* trie = new Trie;
+        for (const string &word : words) {
+            trie->add(word);
+        }
+
+        return dfs(trie, "");
+    }
+};

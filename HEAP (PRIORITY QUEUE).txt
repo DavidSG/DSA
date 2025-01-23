@@ -1,0 +1,57 @@
+CREATING A HEAP
+priority_queue<int> maxHeap;
+priority_queue<int, vector<int>, greater<int>> minHeap;
+
+IF operator() returns true then P2 is greater than P1
+in a array sort -> it will go P1 P2 since we are sorting from smallest to biggest
+in a heap       -> it will go P2 P1 since we are sorting from biggest to smallest
+
+CUSTOM COMPARATOR
+struct CompareFirst {
+    bool operator()(const pair<char, int>& p1, const pair<char, int>& p2) {
+        return p1.second < p2.second; 
+    }
+};
+priority_queue<pair<char, int>, vector<pair<char, int>>, CompareFirst> maxHeap;
+
+EXAMPLE
+
+for (int i = 0; i < points.size(); i++) {
+	minHeap.push(points[i]);
+}
+
+vector<vector<int>> ret;
+while (k > 0) {
+	ret.push_back(minHeap.top());
+	minHeap.pop();
+	k--;
+}
+
+
+BUILDING HEAP FROM ARRAY (COST O(N))
+
+// Convert the vector into a max-heap
+make_heap(maxHeap.begin(), maxHeap.end());
+// Convert the vector into a min-heap
+make_heap(v.begin(), v.end(), greater<int>());
+
+// To remove the smallest element (root of the min-heap)
+pop_heap(v.begin(), v.end(), greater<int>()); v.pop_back();
+
+v.push_back(6); push_heap(v.begin(), v.end(), greater<int>());
+
+
+If only small number of values can use opposite heap in order to remove least worth item.
+Add to minHeap and then if its greater than 5 then eliminate min
+
+
+EXAMPLE
+
+make_heap(nums.begin(), nums.end());
+
+while (k > 1) {
+	pop_heap(nums.begin(), nums.end()); nums.pop_back();
+	k--;
+}
+
+return nums[0];
