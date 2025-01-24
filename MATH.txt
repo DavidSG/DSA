@@ -41,3 +41,7 @@ MATH POW
 ...
 
 Pow turns into log2N function
+
+TRIANGLE VALID
+
+A triangle is valid if sum of its two sides is greater than the third side
