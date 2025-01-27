@@ -18,7 +18,8 @@ HASHING
 
         2. string (unordered elements) -> turn into vector<int> 26 then hash vector;
 
-	3. coordinates -> string hash = to_string(x) + ',' + to_string(y); or pair<x,y> might be better idk
+	3. coordinates -> string hash = to_string(x) + ',' + to_string(y);
+	A coordinate can also be hashed as a matrix of bool
 
 	4. Tree -> String node->val L () R ()
 
@@ -116,4 +117,5 @@ unordered_map<string, int> map;
             }
             if (map.count(aux)) ret += map[aux];
         }
+
 

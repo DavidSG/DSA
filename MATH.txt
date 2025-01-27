@@ -44,4 +44,8 @@ Pow turns into log2N function
 
 TRIANGLE VALID
 
-A triangle is valid if sum of its two sides is greater than the third side
+A triangle is valid if sum of the length of its two smallest sides is greater than the sum of third side
+
+POLIGON VALID
+
+A poligon is valid  if you have k (k >= 3) positive real numbers a1, a2, a3, ..., ak where a1 <= a2 <= a3 <= ... <= ak and a1 + a2 + a3 + ... + ak-1 > ak, then there always exists a polygon with k sides whose lengths are a1, a2, a3, ..., ak.
