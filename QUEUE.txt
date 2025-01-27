@@ -1,0 +1,2 @@
+Insert in the back and remove in the front (like queue) queue <int>
+Double queue deque<int>, insert and remove in front and in back
