@@ -14,3 +14,9 @@ DIAGONAL ITERATION
         }
         cout << endl;
     }
+
+90 deg rotation means:
+mat[i][j] -> mat[j][n-i-1]
+
+Transpose is:
+mat[i][j] -> mat[j][i]
