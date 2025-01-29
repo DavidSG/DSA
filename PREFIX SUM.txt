@@ -29,3 +29,6 @@ line[0] =0;
         }
 
 Use prefix sum + map to solve maximum length of contiguous subarray
+Some numbers may be negative, so do double module
+for example -3 % 5 shoould be equal to 2, but it returns -3
+so use (sum % k + k) % k
