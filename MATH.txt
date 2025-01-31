@@ -49,3 +49,8 @@ A triangle is valid if sum of the length of its two smallest sides is greater th
 POLIGON VALID
 
 A poligon is valid  if you have k (k >= 3) positive real numbers a1, a2, a3, ..., ak where a1 <= a2 <= a3 <= ... <= ak and a1 + a2 + a3 + ... + ak-1 > ak, then there always exists a polygon with k sides whose lengths are a1, a2, a3, ..., ak.
+
+SQUARES
+
+for checking squares keep a unordered map with all nodes. When new node added check map for
+diagonals that allow for valid square 
