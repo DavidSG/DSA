@@ -28,3 +28,5 @@ order the events somehow
 Iterate intervals. Compare element with previous
 If they overlap pick the one with earlist endtime
 If not pick it normal.
+
+intervals
