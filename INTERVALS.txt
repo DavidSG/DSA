@@ -1,4 +1,22 @@
-SORTING
+O(N)
+if values are not too big we can store all values in array of values (like counting sort)
+and solve.
+
+One example is prefix sum
+
+PREFIX SUM 
+
+Intervals can be translated to a vector (intervals = begin and end times, vector = all times) using lazy updating. Then we can check things about the times like if any of them there are too many appointments
+
+vector<int> time(1002);
+        for (int i = 0; i < trips.size(); i++) {
+            time[trips[i][1]] += trips[i][0];
+            time[trips[i][2]+1] -= trips[i][0];
+        }
+
+Can be used only if Values can be up to 10 times larger than number of intervals
+
+SORTING O(log N)
 
 sorting the intervals by the beggining an iterating is usually the solution for most interval problems
 
@@ -10,15 +28,3 @@ order the events somehow
 Iterate intervals. Compare element with previous
 If they overlap pick the one with earlist endtime
 If not pick it normal.
-
-PREFIX SUM
-
-Intervals can be translated to a vector (intervals = begin and end times, vector = all times) using lazy updating. Then we can check things about the times like if any of them there are too many appointments
-
-vector<int> time(1002);
-        for (int i = 0; i < trips.size(); i++) {
-            time[trips[i][1]] += trips[i][0];
-            time[trips[i][2]+1] -= trips[i][0];
-        }
-
-Can be used only if Values can be up to 10 times larger than number of intervals
