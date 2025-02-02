@@ -85,3 +85,10 @@ int aux = abs(num);
 this is an example of base 16
 
 this is an example of base 10 -> 7 problem
+
+
+COMPLEMENT 2
+
+c2 means flipping all bits and adding one.
+long long int aux = num < 0 ? (1LL << 32)+num : num;
+we can use previous formula for just that, turning number into one much bigger
