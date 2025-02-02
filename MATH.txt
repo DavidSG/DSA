@@ -59,10 +59,29 @@ diagonals that allow for valid square
 BASE
 
 each digit is equal to the value of the digit times the base^(position of the digit)
-string ret;
-        while (num) {
-            ret += '0' + (num % 7);
-            num /= 7;
+if (num == 0) return "0";
+        
+        int aux = abs(num);
+        string ret;
+        while (aux) {
+            ret += '0' + (aux % 7);
+            aux /= 7;
         }
+        if (num < 0) ret += '-';
         reverse(ret.begin(),ret.end());
+
+replace 7 to any other number to make it work
+
+int aux = abs(num);
+        string ret;
+        while (aux) {
+            int digit = aux % 16;
+            if (digit < 10) ret += '0' + digit; else ret += 'a' + digit-10;
+            aux /= 16;
+        }
+        if (num < 0) ret += '-';
+        reverse(ret.begin(),ret.end());
+
+this is an example of base 16
+
 this is an example of base 10 -> 7 problem
