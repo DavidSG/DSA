@@ -54,3 +54,15 @@ SQUARES
 
 for checking squares keep a unordered map with all nodes. When new node added check map for
 diagonals that allow for valid square 
+
+
+BASE
+
+each digit is equal to the value of the digit times the base^(position of the digit)
+string ret;
+        while (num) {
+            ret += '0' + (num % 7);
+            num /= 7;
+        }
+        reverse(ret.begin(),ret.end());
+this is an example of base 10 -> 7 problem
