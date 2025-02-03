@@ -3,6 +3,7 @@ CREATE RECURSION TREE
 Permutations: Create recursion tree normally (with each element)
 Combinations: Add only elements to the right of the curr, to avoid repeating combinations.
 
+PERMUTATIONS
 public void permute(int[] nums, int l) {
         if (l == nums.length) {
             count++;
@@ -15,4 +16,44 @@ public void permute(int[] nums, int l) {
         }
     }
 
+COMBINATIONS (specific size)
+int bt (vector<int>& nums, int size, int k, int it, unordered_map<int,int>& map) {  
+	if (size == 3) return 1;
+
+        int ret = 0;
+        for (int i = it; i < nums.size(); i++) {
+            if (map[nums[i]+k] == 0 && map[nums[i]-k] == 0) {
+                map[nums[i]]++;
+                ret += bt(nums,size+1,k,i+1,map);
+                map[nums[i]]--;
+            }
+        }
+
+        return ret;
+    }
+
+
+SUBSETS (combinations of any size. This program will also add the empty combination) 
+
+int bt (vector<int>& nums, int it) {  
+        int ret = 1;
+        for (int i = it; i < nums.size(); i++) {
+                ret += bt(nums,i+1);
+        }
+
+        return ret;
+    }
+
+int bt (vector<int>& nums, int k, int it, unordered_map<int,int>& map) {  
+        int ret = 1;
+        for (int i = it; i < nums.size(); i++) {
+            if (map[nums[i]+k] == 0 && map[nums[i]-k] == 0) {
+                map[nums[i]]++;
+                ret += bt(nums,k,i+1,map);
+                map[nums[i]]--;
+            }
+        }
+
+        return ret;
+    }
 
