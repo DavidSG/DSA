@@ -92,3 +92,9 @@ COMPLEMENT 2
 c2 means flipping all bits and adding one.
 long long int aux = num < 0 ? (1LL << 32)+num : num;
 we can use previous formula for just that, turning number into one much bigger
+
+ACHIEVING NUMBER WITH OPERATIONS
+
+for example getting 25 by only being able to multiply by 2 and add 1 (minimum number of operations)
+
+start at the end and divide whenever possible (even number)
