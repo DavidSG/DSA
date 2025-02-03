@@ -44,6 +44,7 @@ int bt (vector<int>& nums, int it) {
         return ret;
     }
 
+example with restraints
 int bt (vector<int>& nums, int k, int it, unordered_map<int,int>& map) {  
         int ret = 1;
         for (int i = it; i < nums.size(); i++) {
