@@ -1,0 +1,17 @@
+class BIT {
+public:
+    vector<int> tree;
+    int N;
+
+    BIT(int n) : N(n), tree(n+1,0) {}
+
+    void update(int i, int d) { for(;i<=N;i+=i&-i) tree[i]+=d; }
+
+    int sum(int i) {
+        int s = 0;
+        for(;i>0;i-=i&-i) s+=tree[i];
+        return s;
+    }
+
+    int query(int l, int r) { return sum(r)-sum(l-1); }
+};
