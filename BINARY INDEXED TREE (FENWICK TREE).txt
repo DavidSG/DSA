@@ -16,6 +16,8 @@ public:
     int query(int l, int r) { return sum(r)-sum(l); }
 };
 
+You can never access value 0 on array (it is a dummy node)
+
 
 
 FENWICK TREE ON VALUES
