@@ -36,3 +36,35 @@ int max = 0;
         }
 
         return ret; 
+
+COORDINATE COMPRESSION (all values in fenwick must be positive)
+long long sum = 0;
+        for (int num : nums) {
+            sum += num;
+            prefixSums.push_back(sum);
+        }
+
+        // Collect all values that need to be compressed
+        set<long long> allValues(prefixSums.begin(), prefixSums.end());
+        for (long long prefix : prefixSums) {
+            allValues.insert(prefix - lower);
+            allValues.insert(prefix - upper);
+        }
+
+        // Coordinate compression: map each value to an index
+        unordered_map<long long, int> compressedIndex;
+        int index = 1;
+        for (long long value : allValues) {
+            compressedIndex[value] = index++;
+        }
+
+        // Use Fenwick Tree on compressed indices
+        FenwickTree bit(index);
+        int count = 0;
+        for (long long prefix : prefixSums) {
+            // Query BIT: count how many values fall within [prefix - upper, prefix - lower]
+            count += bit.query(compressedIndex[prefix - lower]) - bit.query(compressedIndex[prefix - upper] - 1);
+
+            // Update BIT with current prefix sum
+            bit.update(compressedIndex[prefix], 1);
+        }
