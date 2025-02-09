@@ -21,7 +21,7 @@ You can never access value 0 on array (it is a dummy node)
 
 
 FENWICK TREE ON VALUES
-for the amount of smaller/greater values previous or following index
+for the amount of smaller/greater values previous/following index
 int max = 0;
         for (int i = 0; i < nums.size(); i++) if (nums[i] > max) max = nums[i];
         BIT left(max), right(max);

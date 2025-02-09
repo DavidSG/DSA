@@ -98,3 +98,13 @@ ACHIEVING NUMBER WITH OPERATIONS
 for example getting 25 by only being able to multiply by 2 and add 1 (minimum number of operations)
 
 start at the end and divide whenever possible (even number)
+
+TRIPLETS
+
+when asked to find triplets, consider middle element
+
+DIVISIBILITY
+1 - any number
+2 - even
+3 - sum of digits is divisible by 3
+
