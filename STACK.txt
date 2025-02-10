@@ -85,6 +85,8 @@ int furthestSmallestElement(vector<int>& nums) {
             while (!s.empty() && s.top() <= i) {
                 s.pop();
             }
+	    
+	    // update distance
             if (nums[i] > m) {
                 for (m = nums[i]; !s.empty() && nums[s.top()] < m; r = max(r, s.top() - i + 1), s.pop())
                 ;
