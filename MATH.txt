@@ -108,3 +108,5 @@ DIVISIBILITY
 2 - even
 3 - sum of digits is divisible by 3
 
+SQRT
+you can check what number is the square root of another by using binary search on all possible numbers
