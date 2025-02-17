@@ -99,3 +99,12 @@ FINDING DIAMETER OF TREE:
 
 1. Find furthest node from any node
 2. Find longest distance from that node
+
+0-1 BFS
+Use 0-1 BFS for Graphs with Only 0 and 1 Weights
+
+If edges are only 0 or 1, 0-1 BFS (using a deque) is much more efficient.
+Instead of a min-heap, we use a deque:
+Push 0-weight edges to the front (process them immediately).
+Push 1-weight edges to the back (processed later).
+Complexity: O(V + E) (linear time!).
