@@ -7,7 +7,7 @@ in a array sort -> it will go P1 P2 since we are sorting from smallest to bigges
 in a heap       -> it will go P2 P1 since we are sorting from biggest to smallest
 
 CUSTOM COMPARATOR
-struct CompareFirst {
+struct Compare {
     bool operator()(const pair<char, int>& p1, const pair<char, int>& p2) {
         return p1.second < p2.second; 
     }
