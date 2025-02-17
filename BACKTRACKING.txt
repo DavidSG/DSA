@@ -15,6 +15,17 @@ public void permute(int[] nums, int l) {
             swap(nums, i, l);
         }
     }
+subset permutations (permutations of any size)
+void bt (string tiles, vector<bool>& added, string curr, unordered_set<string>& set) {
+        set.insert(curr);
+        for (int i = 0; i < added.size(); i++) {
+            if (!added[i]) {
+                added[i] = true; curr += tiles[i];
+                bt(tiles, added, curr, set);
+                added[i] = false; curr.pop_back();
+            } 
+        }
+    }
 
 COMBINATIONS (specific size)
 int bt (vector<int>& nums, int size, int k, int it, unordered_map<int,int>& map) {  
@@ -57,4 +68,6 @@ int bt (vector<int>& nums, int k, int it, unordered_map<int,int>& map) {
 
         return ret;
     }
+
+
 
