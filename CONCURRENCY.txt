@@ -1,0 +1,41 @@
+Petersons algorithm
+flag[0] = true;        // Thread 0 wants to enter critical section.
+turn = 1;              // Give priority to Thread 1.
+while (flag[1] && turn == 1) {
+    // Busy-wait until Thread 1 is not interested or it's Thread 0's turn.
+}
+// Critical section (Thread 0 is in the critical section).
+flag[0] = false;       // Thread 0 is leaving the critical section.
+
+#include <iostream>
+#include <thread>
+#include <atomic>
+
+std::atomic<bool> flag[2] = {false, false};
+std::atomic<int> turn = 0;
+
+void critical_section(int id) {
+    int other = 1 - id;  // The other thread
+    flag[id] = true;
+    turn = other;
+
+    while (flag[other] && turn == other) {
+        // Busy wait
+    }
+
+    // Critical section
+    std::cout << "Thread " << id << " is in the critical section.\n";
+
+    // Exit section
+    flag[id] = false;
+}
+
+int main() {
+    std::thread t1(critical_section, 0);
+    std::thread t2(critical_section, 1);
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}
