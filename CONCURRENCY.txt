@@ -1,3 +1,8 @@
+Atomic int functions:
+load() -> reads value
+fetch_add() -> reads value and adds1
+store() -> sets value
+
 TICKET ALGORITHM
 
 #include <iostream>
@@ -76,6 +81,63 @@ int main() {
 
     t1.join();
     t2.join();
+
+    return 0;
+}
+
+
+BAKERY
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <atomic>
+
+const int NUM_THREADS = 5;
+std::atomic<bool> choosing[NUM_THREADS];
+std::atomic<int> number[NUM_THREADS];
+
+int max_ticket() {
+    int max = 0;
+    for (int i = 0; i < NUM_THREADS; i++) {
+        if (number[i] > max) {
+            max = number[i];
+        }
+    }
+    return max;
+}
+
+void bakery_lock(int id) {
+    choosing[id] = true;
+    number[id] = max_ticket() + 1;
+    choosing[id] = false;
+
+    for (int j = 0; j < NUM_THREADS; j++) {
+        while (choosing[j]) {}
+        while (number[j] != 0 &&
+               (number[j] < number[id] || (number[j] == number[id] && j < id))) {}
+    }
+}
+
+void bakery_unlock(int id) {
+    number[id] = 0;
+}
+
+void critical_section(int id) {
+    bakery_lock(id);
+    std::cout << "Thread " << id << " is in the critical section.\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Simulate work
+    bakery_unlock(id);
+}
+
+int main() {
+    std::vector<std::thread> threads;
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threads.emplace_back(critical_section, i);
+    }
+
+    for (auto &t : threads) {
+        t.join();
+    }
 
     return 0;
 }
