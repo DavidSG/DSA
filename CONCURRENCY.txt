@@ -1,4 +1,44 @@
-Petersons algorithm
+TICKET ALGORITHM
+
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <vector>
+#include <chrono>
+
+std::atomic<int> next_ticket(0);
+std::atomic<int> now_serving(0);
+
+void critical_section(int thread_id) {
+    int my_ticket = next_ticket.fetch_add(1); // Get a ticket
+    while (my_ticket != now_serving.load()) {
+        // Busy wait (spins until it's this thread's turn)
+    }
+
+    // Critical section
+    std::cout << "Thread " << thread_id << " is in the critical section.\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // Simulate work
+
+    now_serving.fetch_add(1); // Allow next ticket
+}
+
+int main() {
+    const int num_threads = 5;
+    std::vector<std::thread> threads;
+
+    for (int i = 0; i < num_threads; ++i) {
+        threads.emplace_back(critical_section, i);
+    }
+
+    for (auto &t : threads) {
+        t.join();
+    }
+
+    return 0;
+}
+
+PETERSONS ALGORITHM
+
 flag[0] = true;        // Thread 0 wants to enter critical section.
 turn = 1;              // Give priority to Thread 1.
 while (flag[1] && turn == 1) {
