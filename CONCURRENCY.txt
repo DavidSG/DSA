@@ -3,6 +3,7 @@ load() -> reads value
 fetch_add() -> reads value and adds1
 store() -> sets value
 
+NOTE: Ticket algorithm is most efficient, the others are less so.
 TICKET ALGORITHM
 
 #include <iostream>
