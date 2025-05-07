@@ -3,3 +3,9 @@
 2. If you can check a solution in linear time, you can check all solutions with binary search (in solution space)
 
 3. If DP, try optimizing for requested solution (usually works)
+
+PATTERNS
+
+Hard DP
+
+2 simple algos
